@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="조엘 그린블라트의 마법공식 투자법을 활용한 무료 한국 주식 스크리너. 높은 수익률과 저평가 주식을 쉽게 찾아보세요.">
+    <meta name="keywords" content="마법공식, 가치투자, 주식 스크리너, 한국 주식, 조엘 그린블라트, ROC, 이익수익률">
+    <title>마법공식 투자 - 한국 주식 스크리너</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-icon">📈</span>
+                    <span class="logo-text">마법공식 투자</span>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header-nav" id="headerNav">
+                <a href="register.html" class="nav-btn">회원가입</a>
+                <a href="login.html" class="nav-btn nav-btn-outline">로그인</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <ul class="nav-list" id="mainNavList">
+            <li><a href="index.html" class="active">홈</a></li>
+            <li><a href="about-book.html">책 소개</a></li>
+            <li><a href="how-it-works.html">작동 원리</a></li>
+            <li><a href="screener.html">주식 스크리너</a></li>
+            <li><a href="faq.html">자주 묻는 질문</a></li>
+        </ul>
+    </nav>
+
+    <!-- 페이지 콘텐츠 -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- 왼쪽 섹션: 스크리너 -->
+            <section class="screener-section">
+                <h1>마법공식 주식 스크리너</h1>
+                
+                <div class="screener-box">
+                    <div class="screener-intro">
+                        <p>간단한 두 가지 조건만 입력하면, 마법공식이 투자 포트폴리오에 적합한 최고의 주식을 선별해 드립니다.</p>
+                    </div>
+
+                    <form class="screener-form" id="screenerForm">
+                        <div class="form-group">
+                            <label for="minMarketCap">최소 시가총액</label>
+                            <div class="input-row">
+                                <input type="number" id="minMarketCap" value="500" min="100" max="10000">
+                                <span class="unit">(억원)</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>종목 수</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="stockCount" value="30" checked>
+                                    <span>30개</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="stockCount" value="50">
+                                    <span>50개</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="register.html" class="btn btn-primary">
+                                <span class="btn-icon">📝</span>
+                                회원가입
+                            </a>
+                            <a href="login.html" class="btn btn-secondary">
+                                <span class="btn-icon">🔑</span>
+                                로그인
+                            </a>
+                        </div>
+
+                        <button type="submit" class="btn btn-action">
+                            스크리닝 시작하기
+                        </button>
+                    </form>
+
+                    <div class="demo-preview">
+                        <a href="screener.html">
+                            <div class="demo-image">
+                                <div class="demo-placeholder">
+                                    <div class="demo-header">주식 스크리너 미리보기</div>
+                                    <table class="demo-table">
+                                        <thead>
+                                            <tr>
+                                                <th>순위</th>
+                                                <th>종목명</th>
+                                                <th>ROC</th>
+                                                <th>이익수익률</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>1</td><td>삼성전자</td><td>25.3%</td><td>8.2%</td></tr>
+                                            <tr><td>2</td><td>SK하이닉스</td><td>22.1%</td><td>7.8%</td></tr>
+                                            <tr><td>3</td><td>LG에너지솔루션</td><td>19.8%</td><td>6.5%</td></tr>
+                                            <tr><td>4</td><td>현대차</td><td>18.5%</td><td>9.1%</td></tr>
+                                            <tr><td>5</td><td>기아</td><td>17.2%</td><td>8.7%</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="demo-overlay">
+                                        <span>스크리너 사용하기</span>
+                                        <p>회원가입 또는 로그인이 필요합니다</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 오른쪽 섹션: 추천 상품/정보 -->
+            <aside class="sidebar">
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        <strong>한국 가치투자 ETF와 펀드 정보</strong>
+                    </div>
+
+                    <div class="etf-card">
+                        <div class="etf-symbol">KODEX 가치투자</div>
+                        <div class="etf-name">삼성자산운용 KODEX 밸류</div>
+                        <div class="etf-desc">
+                            저PER, 저PBR 종목 위주의 가치투자 전략
+                        </div>
+                        <a href="#" class="etf-link">자세히 보기 →</a>
+                    </div>
+
+                    <div class="etf-card alt">
+                        <div class="etf-symbol">TIGER 가치주</div>
+                        <div class="etf-name">미래에셋 TIGER 밸류</div>
+                        <div class="etf-desc">
+                            배당수익률과 저평가 종목 기반의 안정적 투자
+                        </div>
+                        <a href="#" class="etf-link">자세히 보기 →</a>
+                    </div>
+
+                    <div class="etf-card">
+                        <div class="etf-symbol">ARIRANG 고배당주</div>
+                        <div class="etf-name">한화자산운용 고배당</div>
+                        <div class="etf-desc">
+                            높은 배당수익률을 보이는 우량 종목 투자
+                        </div>
+                        <a href="#" class="etf-link">자세히 보기 →</a>
+                    </div>
+
+                    <p class="sidebar-note">
+                        본 사이트는 투자 자문이 아닌 정보 제공 목적입니다. 투자 결정은 본인의 판단 하에 이루어져야 합니다.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="disclaimer">
+            <strong>면책조항:</strong>
+            본 사이트는 투자 자문사, 증권사, 투자 회사가 아닙니다. "마법공식"은 조엘 그린블라트의 저서 <em>「주식시장을 이기는 작은 책」</em>에 설명된 투자 전략을 설명하는 용어입니다. 이 공식에는 "마법적인" 요소가 없으며, 공식의 사용이 투자 성과나 수익을 보장하지 않습니다.
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 마법공식 투자. All Rights Reserved.</span>
+            <a href="privacy.html">개인정보처리방침</a>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

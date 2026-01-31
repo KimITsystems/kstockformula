@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="마법공식 투자 회원가입">
+    <title>회원가입 - 마법공식 투자</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-icon">📈</span>
+                    <span class="logo-text">마법공식 투자</span>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header-nav" id="headerNav">
+                <a href="register.html" class="nav-btn">회원가입</a>
+                <a href="login.html" class="nav-btn nav-btn-outline">로그인</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about-book.html">책 소개</a></li>
+            <li><a href="how-it-works.html">작동 원리</a></li>
+            <li><a href="screener.html">주식 스크리너</a></li>
+            <li><a href="faq.html">자주 묻는 질문</a></li>
+        </ul>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>회원가입</h1>
+                    <p>무료 계정을 만들고 스크리너를 이용하세요</p>
+                </div>
+                
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" placeholder="홍길동" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" placeholder="example@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" placeholder="8자 이상 입력하세요" required minlength="8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passwordConfirm">비밀번호 확인</label>
+                        <input type="password" id="passwordConfirm" placeholder="비밀번호를 다시 입력하세요" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span><a href="privacy.html">이용약관</a> 및 <a href="privacy.html">개인정보처리방침</a>에 동의합니다</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">회원가입</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="disclaimer">
+            <strong>면책조항:</strong>
+            본 사이트는 투자 자문사, 증권사, 투자 회사가 아닙니다.
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 마법공식 투자. All Rights Reserved.</span>
+            <a href="privacy.html">개인정보처리방침</a>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
