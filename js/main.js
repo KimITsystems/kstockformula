@@ -64,65 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // 폼 유효성 검사 (로그인 페이지용)
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (!email || !password) {
-                showError('이메일과 비밀번호를 모두 입력해 주세요.');
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                showError('올바른 이메일 형식을 입력해 주세요.');
-                return;
-            }
-            
-            // 로그인 처리 (실제 구현 시 서버 통신 필요)
-            alert('로그인 기능은 현재 준비 중입니다.');
-        });
-    }
-    
-    // 폼 유효성 검사 (회원가입 페이지용)
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const passwordConfirm = document.getElementById('passwordConfirm').value;
-            
-            if (!name || !email || !password || !passwordConfirm) {
-                showError('모든 필드를 입력해 주세요.');
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                showError('올바른 이메일 형식을 입력해 주세요.');
-                return;
-            }
-            
-            if (password.length < 8) {
-                showError('비밀번호는 8자 이상이어야 합니다.');
-                return;
-            }
-            
-            if (password !== passwordConfirm) {
-                showError('비밀번호가 일치하지 않습니다.');
-                return;
-            }
-            
-            // 회원가입 처리 (실제 구현 시 서버 통신 필요)
-            alert('회원가입 기능은 현재 준비 중입니다.');
-        });
-    }
+    // 로그인/회원가입 폼은 js/auth-login.js, js/auth-register.js (Firebase)에서 처리
     
     // FAQ 토글 이벤트 위임
     const faqList = document.querySelector('.faq-list');
