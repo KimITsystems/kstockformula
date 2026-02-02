@@ -10,6 +10,7 @@
 const {setGlobalOptions} = require("firebase-functions");
 const {onRequest} = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
+const { getAccessToken } = require("./kisAuth");
 
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
@@ -30,3 +31,23 @@ setGlobalOptions({ maxInstances: 10 });
 //   logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
+exports.kisTokenTest = onRequest(
+  { region: "asia-northeast3" },
+  async (req, res) => {
+    try {
+      const token = await getAccessToken();
+
+      res.json({
+        ok: true,
+        token_preview: token.slice(0, 12) + "...",
+      });
+    } catch (e) {
+      logger.error(e.response?.data || e.message);
+
+      res.status(500).json({
+        ok: false,
+        error: e.response?.data || e.message,
+      });
+    }
+  }
+);
