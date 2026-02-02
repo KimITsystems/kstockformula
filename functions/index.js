@@ -11,6 +11,7 @@ const {setGlobalOptions} = require("firebase-functions");
 const {onRequest} = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
 const { getAccessToken, KIS_APPKEY, KIS_APPSECRET } = require("./kisAuth");
+const { getPrice } = require("./kisStock");
 
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
@@ -51,6 +52,23 @@ exports.kisTokenTest = onRequest(
         ok: false,
         error: e.response?.data || e.message,
       });
+    }
+  }
+);
+
+exports.kisPriceTest = onRequest(
+  {
+    region: "asia-northeast3",
+    secrets: [KIS_APPKEY, KIS_APPSECRET],
+  },
+  async (req, res) => {
+    try {
+      // 삼성전자
+      const data = await getPrice({ code: "005930" });
+      res.json({ ok: true, data });
+    } catch (e) {
+      logger.error(e.response?.data || e.message);
+      res.status(500).json({ ok: false, error: e.response?.data || e.message });
     }
   }
 );
