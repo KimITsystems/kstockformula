@@ -10,7 +10,7 @@
 const {setGlobalOptions} = require("firebase-functions");
 const {onRequest} = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
-const { getAccessToken } = require("./kisAuth");
+const { getAccessToken, KIS_APPKEY, KIS_APPSECRET } = require("./kisAuth");
 
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
@@ -32,7 +32,10 @@ setGlobalOptions({ maxInstances: 10 });
 //   response.send("Hello from Firebase!");
 // });
 exports.kisTokenTest = onRequest(
-  { region: "asia-northeast3" },
+  {
+    region: "asia-northeast3",
+    secrets: [KIS_APPKEY, KIS_APPSECRET],
+  },
   async (req, res) => {
     try {
       const token = await getAccessToken();
