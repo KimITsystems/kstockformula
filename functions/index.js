@@ -74,3 +74,28 @@ exports.kisPriceTest = onRequest(
 );
 const { importMaster } = require("./importMaster");
 exports.importMaster = importMaster;
+
+const admin = require("firebase-admin");
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
+
+
+exports.stocksSample = onRequest(
+  { region: "asia-northeast3" },
+  async (req, res) => {
+    try {
+      const snap = await admin.firestore()
+        .collection("stocks")
+        .orderBy("code")
+        .limit(10)
+        .get();
+
+      const items = snap.docs.map(d => d.data());
+      res.json({ ok: true, count: items.length, items });
+    } catch (e) {
+      logger.error(e);
+      res.status(500).json({ ok: false, error: e.message });
+    }
+  }
+);
