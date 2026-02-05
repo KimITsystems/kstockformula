@@ -72,3 +72,5 @@ exports.kisPriceTest = onRequest(
     }
   }
 );
+const { importMaster } = require("./importMaster");
+exports.importMaster = importMaster;
