@@ -226,3 +226,7 @@ exports.updateMarketCaps = onRequest(
     }
   }
 );
+const { mapDartCorpCodesKospi } = require("./dartCorpMap");
+exports.mapDartCorpCodesKospi = mapDartCorpCodesKospi;
+const { dartCorpDebug } = require("./dartCorpMap");
+exports.dartCorpDebug = dartCorpDebug;
