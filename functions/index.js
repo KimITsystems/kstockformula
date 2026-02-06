@@ -99,3 +99,130 @@ exports.stocksSample = onRequest(
     }
   }
 );
+exports.marketCapSample = onRequest(
+  {
+    region: "asia-northeast3",
+    secrets: [KIS_APPKEY, KIS_APPSECRET],
+  },
+  async (req, res) => {
+    try {
+      const minMarketCapEok = Number(req.query.minMarketCap || 500); // 억원
+      const minWon = minMarketCapEok * 100000000;
+
+      // 종목 50개만 샘플
+      const snap = await admin.firestore()
+        .collection("stocks")
+        .orderBy("code")
+        .limit(50)
+        .get();
+
+      const codes = snap.docs.map(d => d.id);
+
+      const results = [];
+      for (const code of codes) {
+        try {
+          const data = await getPrice({ code });
+          const o = data?.output;
+          const price = Number(o?.stck_prpr || 0);
+          const shares = Number(o?.lstn_stcn || 0);
+          const marketCapWon = price * shares;
+
+          if (marketCapWon >= minWon) {
+            results.push({
+              code,
+              name: snap.docs.find(x => x.id === code)?.data()?.name,
+              marketCapEok: Math.round(marketCapWon / 100000000),
+              price,
+            });
+          }
+        } catch (inner) {
+          // 특정 종목에서 실패해도 계속 진행
+          logger.warn(`skip ${code}: ${inner.response?.data?.msg1 || inner.message}`);
+        }
+      }
+
+      // 시총 큰 순 정렬
+      results.sort((a, b) => b.marketCapEok - a.marketCapEok);
+
+      res.json({
+        ok: true,
+        minMarketCapEok,
+        checked: codes.length,
+        passed: results.length,
+        results: results.slice(0, 30),
+      });
+    } catch (e) {
+      logger.error(e);
+      res.status(500).json({ ok: false, error: e.message });
+    }
+  }
+);
+exports.updateMarketCaps = onRequest(
+  {
+    region: "asia-northeast3",
+    secrets: [KIS_APPKEY, KIS_APPSECRET],
+    timeoutSeconds: 540,
+    memory: "1GiB",
+  },
+  async (req, res) => {
+    try {
+      const limit = Math.min(Number(req.query.limit || 200), 400);
+      const startAfter = (req.query.startAfter || "").toString();
+
+      let q = admin.firestore().collection("stocks").orderBy("code").limit(limit);
+      if (startAfter) {
+        q = admin.firestore().collection("stocks").orderBy("code").startAfter(startAfter).limit(limit);
+      }
+
+      const snap = await q.get();
+      const docs = snap.docs;
+
+      let updated = 0;
+      let lastCode = null;
+
+      // 종목명 매핑
+      const nameByCode = new Map(docs.map(d => [d.id, d.data().name]));
+
+      // 순차 호출 (안정성 우선)
+      for (const d of docs) {
+        const code = d.id;
+        lastCode = code;
+
+        try {
+          const data = await getPrice({ code });
+          const o = data?.output;
+
+          const price = Number(o?.stck_prpr || 0);
+          const shares = Number(o?.lstn_stcn || 0);
+          const marketCapWon = price * shares;
+          const marketCapEok = Math.round(marketCapWon / 100000000);
+
+          await admin.firestore().collection("stocks").doc(code).set(
+            {
+              price,
+              shares,
+              marketCapEok,
+              mcUpdatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            },
+            { merge: true }
+          );
+
+          updated++;
+        } catch (inner) {
+          logger.warn(`skip ${code}: ${inner.response?.data?.msg1 || inner.message}`);
+        }
+      }
+
+      res.json({
+        ok: true,
+        requested: limit,
+        processed: docs.length,
+        updated,
+        nextStartAfter: lastCode, // 다음 호출에 이 값을 넣으면 됨
+      });
+    } catch (e) {
+      logger.error(e);
+      res.status(500).json({ ok: false, error: e.message });
+    }
+  }
+);
